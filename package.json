@@ -1,18 +1,57 @@
 {
+  "name": "turbo-mono-repo",
   "private": true,
+  "homepage": "https://github.com/inscriptors/turbo-mono-repo#readme",
+  "bugs": {
+    "url": "https://github.com/inscriptors/turbo-mono-repo/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inscriptors/turbo-mono-repo.git"
+  },
+  "license": "MIT",
   "scripts": {
+    "add-changeset": "changeset add",
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "init-changeset": "changeset init",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "prepare": "husky install",
+    "prerelease": "turbo run build lint test",
+    "release": "changeset publish",
+    "test": "turbo run test",
+    "version-packages": "changeset version"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "npx prettier --write",
+      "npx eslint --fix"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   },
   "devDependencies": {
-    "@turbo/gen": "^1.9.7",
-    "eslint": "^7.32.0",
-    "eslint-config-custom": "workspace:*",
-    "prettier": "^2.5.1",
+    "@changesets/cli": "^2.26.2",
+    "@commitlint/cli": "^17.6.7",
+    "@commitlint/config-conventional": "^17.6.7",
+    "@inscriptors/eslint-config": "workspace:*",
+    "@turbo/gen": "^1.10.9",
+    "commitizen": "^4.3.0",
+    "commitlint-plugin-workspace-scopes": "^1.1.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.45.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.3",
+    "prettier": "^3.0.0",
     "turbo": "latest"
   },
-  "packageManager": "pnpm@7.15.0",
-  "name": "turbo-mono-repo"
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=8"
+  },
+  "engineStrict": true
 }
